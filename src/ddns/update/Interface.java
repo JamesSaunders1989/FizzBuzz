@@ -19,6 +19,8 @@ public class Interface extends javax.swing.JFrame {
     
     DDNSUpdate dnsup;
     Config con = new Config();
+    String site = "";
+    String updateurl = "";
     
     ReadFile otherlog;
     /**
@@ -31,17 +33,21 @@ public class Interface extends javax.swing.JFrame {
         jTextField2.setEditable(false);
         jTextField1.setEditable(false);
         
+        site = con.getProp("Site");
+        updateurl = con.getProp("URLupdate");
+        jTextField4.setText(site);
+        jTextField5.setText(updateurl);
+        
+        
         dnsup.writeNewLine();
         dnsup.writeToFile("Getting IP.... ");
 
         jTextField2.setText(dnsup.getIP());
-        jTextField1.setText(dnsup.getSiteIP());
+        jTextField1.setText(dnsup.getSiteIP(site));
         
         otherlog = new ReadFile();
         
-        jTextField4.setText(con.getProp("Site"));
-        jTextField5.setText(con.getProp("URLupdate"));
-        
+
     }
 
     /**
@@ -324,7 +330,7 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        jTextArea2.setText(dnsup.setIP());
+        jTextArea2.setText(dnsup.setIP(updateurl));
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -335,11 +341,11 @@ public class Interface extends javax.swing.JFrame {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
         dnsup.writeToFile("Getting IP.... ");
-        String getip = dnsup.getIP();
-        String getsiteip = dnsup.getSiteIP();
+        String getxip = dnsup.getIP();
+        String getsitexip = dnsup.getSiteIP(site);
 
-        jTextField2.setText(getip);
-        jTextField1.setText(getsiteip);
+        jTextField2.setText(getxip);
+        jTextField1.setText(getsitexip);
         //dnsup.getIP();
     }//GEN-LAST:event_jButton1ActionPerformed
 
