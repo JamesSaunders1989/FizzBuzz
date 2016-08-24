@@ -32,11 +32,11 @@ public class DDNSUpdate {
                 
     }
     
-    public String getSiteIP()
+    public String getSiteIP(String site)
     {
         try
         {
-        InetAddress getAddress = java.net.InetAddress.getByName("mrsaladbowl.com");
+        InetAddress getAddress = java.net.InetAddress.getByName(site);
         String address = getAddress.getHostAddress();
         return address;
         }
@@ -49,11 +49,58 @@ public class DDNSUpdate {
     
     
     
-    public void setIP()
+    public String setIP(String update)
+    {
+        return "updating";
+        //UNCOMENT FROM HERE
+//        URL url;
+//
+//        try {
+//            // get URL content
+//
+//            String a=update;
+//            url = new URL(a);
+//            URLConnection conn = url.openConnection();
+//
+//            // open the stream and put it into BufferedReader
+//            BufferedReader br = new BufferedReader(
+//                               new InputStreamReader(conn.getInputStream()));
+//
+//            String inputLine;
+//            while ((inputLine = br.readLine()) != null) {
+//                    //System.out.println(inputLine);
+//            }
+//            br.close();
+//
+//            System.out.println("Done");
+//
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        
+//        return "updating url";
+        //UNCOMMENT TO HERE
+
+    }
+
+
+    
+    void writeNewLine()
     {
         
     }
     
+    void writeDateTime()
+    {
+        
+    }
+    
+    void writeToFile(String str2)
+    {
+        
+    }
     
     
     
