@@ -444,8 +444,8 @@ public class Interface extends javax.swing.JFrame {
 
     private void StartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartActionPerformed
         // TODO add your handling code here:
-        loop = true;
-        runLoop();
+        
+        new AnswerWorker(dnsup, true).execute();
         
         
 //        try {

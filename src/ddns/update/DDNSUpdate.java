@@ -10,6 +10,9 @@ import java.io.*;
  */
 public class DDNSUpdate {
 
+    
+    boolean loop = false;
+    Config con;
 
     public static void main(String[] args) {
         
@@ -47,41 +50,57 @@ public class DDNSUpdate {
     }
                 
     
+    public boolean getLoop()
+    {
+        return loop;
+    }
     
+    public void setLoop(boolean lop)
+    {
+        loop = lop;
+    }
+    
+    public void setConfig(Config con1)
+    {
+        con = con1;
+    }
+    
+    public Config getConfig()
+    {
+        return con;
+    }
     
     public String setIP(String update)
     {
-        return "updating";
-        //UNCOMENT FROM HERE
-//        URL url;
-//
-//        try {
-//            // get URL content
-//
-//            String a=update;
-//            url = new URL(a);
-//            URLConnection conn = url.openConnection();
-//
-//            // open the stream and put it into BufferedReader
-//            BufferedReader br = new BufferedReader(
-//                               new InputStreamReader(conn.getInputStream()));
-//
-//            String inputLine;
-//            while ((inputLine = br.readLine()) != null) {
-//                    //System.out.println(inputLine);
-//            }
-//            br.close();
-//
-//            System.out.println("Done");
-//
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        
-//        return "updating url";
-        //UNCOMMENT TO HERE
+        URL url;
+
+        try {
+            // get URL content
+
+            String a=update;
+            url = new URL(a);
+            URLConnection conn = url.openConnection();
+
+            // open the stream and put it into BufferedReader
+            BufferedReader br = new BufferedReader(
+                               new InputStreamReader(conn.getInputStream()));
+
+            String inputLine;
+            while ((inputLine = br.readLine()) != null) {
+                    //System.out.println(inputLine);
+            }
+            br.close();
+
+            System.out.println("Done");
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return "updating url";
+        
 
     }
 
