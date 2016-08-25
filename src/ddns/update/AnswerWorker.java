@@ -22,6 +22,12 @@ public class AnswerWorker extends SwingWorker<Integer, Integer>
 
     DDNSUpdate dnsup;
     boolean loopy;
+    int i;
+    Config con;
+    String site;
+    String update;
+    String siteip;
+    String ip;
     
     
     public AnswerWorker(DDNSUpdate ddnsup2, boolean lop)
@@ -33,63 +39,109 @@ public class AnswerWorker extends SwingWorker<Integer, Integer>
 
     protected Integer doInBackground() throws Exception
     {
-        // Do a time-consuming task.
-//        Thread.sleep(5000);
-        
-           
-        loopy = dnsup.getLoop();
-        
-    while(loopy == true)
+        try
         {
-        Config con = dnsup.getConfig();
-        String site = con.getProp("Site");
-        String siteip = dnsup.getSiteIP(site);
-        String ip = dnsup.getIP();
-        
-        
-        
-        try {
-            dnsup.setIP(site);
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("before runloop ");
+            runLoop();
+            
         }
         
+        catch(Exception e)
+        {
+                    
         }
-        //System.out.println("12");
-        return 12;
+        return 19;
     }
+        
+//////        // Do a time-consuming task.
+////////        Thread.sleep(5000);
+//////        loopy = dnsup.getLoop();
+//////        i = 0;
+//////        
+//////        //loopy = true;
+//////        
+//////        while(loopy == true)
+//////        {
+//////        loopy = dnsup.getLoop();
+//////        con = dnsup.getConfig();
+//////        site = con.getProp("Site");
+//////        update = con.getProp("URLupdate");
+//////        siteip = dnsup.getSiteIP(site);
+//////        ip = dnsup.getIP();
+//////        i = 5;
+//////        System.out.println(i);
+//////        
+//////        
+//////        
+//////        try {
+//////            dnsup.setIP(update);
+//////            Thread.sleep(5000);
+//////        } catch (InterruptedException ex) {
+//////            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+//////        }
+//////        
+//////        }
+//////        //System.out.println("12");
+//////        return i;
+//////    }
 
     protected void done()
     {
-        try
-        {
-            //JOptionPane.showMessageDialog(f, get());
-            System.out.println(get());
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        
+            System.out.println("dont method?");
+//////        loopy = dnsup.getLoop();
+//////        i = 0;
+//////        
+//////        //loopy = true;
+//////        
+//////        while(loopy == true)
+//////        {
+//////        loopy = dnsup.getLoop();
+//////        con = dnsup.getConfig();
+//////        site = con.getProp("Site");
+//////        update = con.getProp("URLupdate");
+//////        siteip = dnsup.getSiteIP(site);
+//////        ip = dnsup.getIP();
+//////        i = 5;
+//////        System.out.println(i);
+//////        
+//////        
+//////        
+//////        try {
+//////            dnsup.setIP(update);
+//////            Thread.sleep(5000);
+//////        } catch (InterruptedException ex) {
+//////            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+//////        }
+        
+//////        }
+        
+        
+        
+        
+        
+        
+        
     }
     
     public void runLoop()
     {
-        
+        System.out.println("in runloop ");
         loopy = dnsup.getLoop();
         
-    while(loopy == true)
+        while(loopy == true)
         {
-        Config con = dnsup.getConfig();
-        String site = con.getProp("Site");
-        String siteip = dnsup.getSiteIP(site);
-        String ip = dnsup.getIP();
+        con = dnsup.getConfig();
+        site = con.getProp("Site");
+        siteip = dnsup.getSiteIP(site);
+        update = con.getProp("URLupdate");
+        ip = dnsup.getIP();
         
         
         
         try {
-            dnsup.setIP(site);
-            TimeUnit.SECONDS.sleep(5);
+            dnsup.setIP(update);
+            Thread.sleep(5000);
         } catch (InterruptedException ex) {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
