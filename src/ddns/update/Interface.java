@@ -22,6 +22,7 @@ public class Interface extends javax.swing.JFrame {
     Config con = new Config();
     String site = "";
     String updateurl = "";
+    String siteip;
     
     boolean loop = false;
     
@@ -40,8 +41,9 @@ public class Interface extends javax.swing.JFrame {
         jTextField1.setEditable(false);
         
         site = con.getProp("Site");
+        siteip = dnsup.getSiteIP(site);
         updateurl = con.getProp("URLupdate");
-        jTextField4.setText(site);
+        jTextField4.setText(siteip);
         jTextField5.setText(updateurl);
         
         jSpinner1.setValue(5);
