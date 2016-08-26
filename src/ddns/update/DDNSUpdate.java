@@ -3,6 +3,8 @@ package ddns.update;
 
 import java.net.*;
 import java.io.*;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  *
@@ -16,6 +18,7 @@ public class DDNSUpdate {
     String site;
     String update;
     int delay;
+    JTextArea jtextfieldloop;
     
     public DDNSUpdate(String site2, String updateurl)
     {
@@ -108,6 +111,16 @@ public class DDNSUpdate {
     public Config getConfig()
     {
         return con;
+    }
+    
+    public void setJTextFieldLoop(JTextArea j)
+    {
+        jtextfieldloop = j;
+    }
+    
+    public JTextArea getJTextFieldLoop()
+    {
+        return jtextfieldloop;
     }
     
     public String setIP(String update)

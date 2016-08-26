@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 
 /**
@@ -28,12 +30,16 @@ public class AnswerWorker extends SwingWorker<Integer, Integer>
     String update;
     String siteip;
     String ip;
+    JTextArea jTextFieldLoop;
+    DateTime date;
     
     
     public AnswerWorker(DDNSUpdate ddnsup2)
     {
         dnsup = ddnsup2;
         loopy = dnsup.getLoop();
+        jTextFieldLoop = dnsup.getJTextFieldLoop();
+        date = new DateTime();
     }
     
 
@@ -141,7 +147,8 @@ public class AnswerWorker extends SwingWorker<Integer, Integer>
         loopy = true;
         //loopy = dnsup.getLoop();
         int cal = dnsup.getDelay();
-        
+        int l = 0;
+        String loopoutput = "";
         
         //Thread.sleep(cal);
         
@@ -149,6 +156,9 @@ public class AnswerWorker extends SwingWorker<Integer, Integer>
         {
         
         try {
+        l++;
+        loopoutput = loopoutput + "Starting update Loop " + l + "   " + date.getDate() + "\n";
+        jTextFieldLoop.setText(loopoutput);
         loopy = dnsup.getLoop();
         System.out.println("after getLoop ");
         con = dnsup.getConfig();                    //gets config file

@@ -20,7 +20,7 @@ public class DateTime {
     
     public DateTime()
     {
-        df = new SimpleDateFormat("dd/mm/yyyy HH:mm:ss");
+        df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     }
     
     public String getDate()
