@@ -30,10 +30,10 @@ public class AnswerWorker extends SwingWorker<Integer, Integer>
     String ip;
     
     
-    public AnswerWorker(DDNSUpdate ddnsup2, boolean lop)
+    public AnswerWorker(DDNSUpdate ddnsup2)
     {
         dnsup = ddnsup2;
-        loopy = lop;
+        loopy = dnsup.getLoop();
     }
     
 
@@ -88,7 +88,21 @@ public class AnswerWorker extends SwingWorker<Integer, Integer>
     protected void done()
     {
         
-            System.out.println("dont method?");
+        try
+        {
+            
+            System.out.println("done method?");
+            get();
+            
+        }
+        
+        catch (Exception e)
+        {
+                    
+        }
+            
+        
+        
 //////        loopy = dnsup.getLoop();
 //////        i = 0;
 //////        
@@ -115,36 +129,52 @@ public class AnswerWorker extends SwingWorker<Integer, Integer>
 //////        }
         
 //////        }
-        
-        
-        
-        
-        
-        
+
         
     }
     
-    public void runLoop()
+    
+    
+    public void runLoop() throws InterruptedException
     {
         System.out.println("in runloop ");
-        loopy = dnsup.getLoop();
+        loopy = true;
+        //loopy = dnsup.getLoop();
+        int cal = dnsup.getDelay();
+        
+        
+        //Thread.sleep(cal);
         
         while(loopy == true)
         {
-        con = dnsup.getConfig();
-        site = con.getProp("Site");
-        siteip = dnsup.getSiteIP(site);
-        update = con.getProp("URLupdate");
-        ip = dnsup.getIP();
-        
-        
         
         try {
-            dnsup.setIP(update);
-            Thread.sleep(5000);
-        } catch (InterruptedException ex) {
+        loopy = dnsup.getLoop();
+        System.out.println("after getLoop ");
+        con = dnsup.getConfig();                    //gets config file
+        System.out.println("after getConfig ");
+        site = dnsup.getSite();                 //gets site to check ip address of from config file
+        System.out.println("after getProp site ");
+        siteip = dnsup.getSiteIP(site);             //checks ip of site
+        System.out.println("after getSiteIP ");
+        update = dnsup.getUpdateURL();          //gets update url from the config file
+        System.out.println("after getProp URLupdate ");
+        ip = dnsup.getIP();                         //gets local ip
+        System.out.println("getIP ");
+        System.out.println("in while loop ");
+        
+        
+        
+        dnsup.setIP(update);
+        
+        TimeUnit.MINUTES.sleep(cal);
+        //Thread.sleep(cal);
+        } 
+        catch (InterruptedException ex) 
+        {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         
         }
     

@@ -13,6 +13,16 @@ public class DDNSUpdate {
     
     boolean loop = false;
     Config con;
+    String site;
+    String update;
+    int delay;
+    
+    public DDNSUpdate(String site2, String updateurl)
+    {
+        site = site2;
+        update = updateurl;
+        
+    }
 
     public static void main(String[] args) {
         
@@ -58,6 +68,36 @@ public class DDNSUpdate {
     public void setLoop(boolean lop)
     {
         loop = lop;
+    }
+    
+    public String getSite()
+    {
+        return site;
+    }
+    
+    public void setSite(String si)
+    {
+        site = si;
+    }
+    
+    public String getUpdateURL()
+    {
+        return update;
+    }
+    
+    public void setUpdateURL(String up)
+    {
+        update = up;
+    }
+    
+    public int getDelay()
+    {
+        return delay;
+    }
+    
+    public void setDelay(int del)
+    {
+        delay = del;
     }
     
     public void setConfig(Config con1)
