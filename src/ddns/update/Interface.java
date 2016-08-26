@@ -5,6 +5,7 @@
  */
 package ddns.update;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeUnit;
@@ -24,11 +25,17 @@ public class Interface extends javax.swing.JFrame {
     String site = "";
     String updateurl = "";
     String siteip;
+    String runonstart;
+    boolean boostart;
+    DateTime date;
+    
     
     
     boolean loop = false;
     
     ReadFile otherlog;
+    
+    
     
     
     
@@ -41,9 +48,23 @@ public class Interface extends javax.swing.JFrame {
         
         jTextField2.setEditable(false);
         jTextField1.setEditable(false);
-        
+        date = new DateTime();
+        runonstart = con.getProp("Startup");
         site = con.getProp("Site");
         updateurl = con.getProp("URLupdate");
+        
+        
+        if(runonstart.equalsIgnoreCase("true") == true)
+        {
+            boostart = true;
+        }
+        else
+        {
+            boostart = false;
+        }
+        
+        jCheckBox1.setSelected(boostart);
+        
         
         dnsup = new DDNSUpdate(site, updateurl);
         
@@ -51,6 +72,8 @@ public class Interface extends javax.swing.JFrame {
         
         jTextField4.setText(site);
         jTextField5.setText(updateurl);
+        
+        jCheckBox1.setSelected(boostart);
         
         jSpinner1.setValue(5);
         
@@ -65,7 +88,19 @@ public class Interface extends javax.swing.JFrame {
         
         otherlog = new ReadFile();
         
+        if(boostart == true)
+        {
+            int wait = (int)jSpinner1.getValue();
+            dnsup.setJTextFieldLoop(jTextAreaLoop);
+            dnsup.setDelay(wait);
+            dnsup.setLoop(true);
         
+            new AnswerWorker(dnsup).execute();
+        }
+        else
+        {
+            
+        }
 
     }
 
@@ -104,6 +139,7 @@ public class Interface extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         Start = new javax.swing.JButton();
@@ -253,6 +289,13 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
+        jCheckBox1.setText("run loop on startup");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -269,7 +312,9 @@ public class Interface extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(86, 86, 86)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBox1)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(91, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -283,7 +328,9 @@ public class Interface extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(102, 102, 102)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBox1)
+                .addGap(66, 66, 66)
                 .addComponent(jButton4)
                 .addContainerGap(109, Short.MAX_VALUE))
         );
@@ -424,10 +471,14 @@ public class Interface extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         con.saveProp("Site", jTextField4.getText());
         con.saveProp("URLupdate", jTextField5.getText());
+        runonstart = ("" + jCheckBox1.isEnabled());
+        con.saveProp("Startup", runonstart);
+        
         site = jTextField4.getText();
         updateurl = jTextField5.getText();
         jTextField2.setText(dnsup.getIP());
         jTextField1.setText(dnsup.getSiteIP(site));
+        
         
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -482,8 +533,24 @@ public class Interface extends javax.swing.JFrame {
     private void StopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StopActionPerformed
         loop = false;
         dnsup.setLoop(loop);
+        jTextAreaLoop.setText(jTextAreaLoop.getText() + "Loop Stopped " + "   " + date.getDate() + "\n");
         // TODO add your handling code here:
     }//GEN-LAST:event_StopActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+        runonstart = "" + jCheckBox1.isEnabled();
+        
+        if(runonstart == "true")
+        {
+            boostart = true;
+        }
+        else
+        {
+            boostart = false;
+        }
+        
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -532,6 +599,7 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
