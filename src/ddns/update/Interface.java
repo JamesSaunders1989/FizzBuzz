@@ -30,7 +30,7 @@ public class Interface extends javax.swing.JFrame {
     
     
     
-    boolean loop = false;
+    boolean loop;
     
     ReadFile otherlog;
     
@@ -72,7 +72,7 @@ public class Interface extends javax.swing.JFrame {
         jTextField4.setText(site);
         jTextField5.setText(updateurl);
         
-        jCheckBox1.setSelected(boostart);
+        
         
         jSpinner1.setValue(5);
         
