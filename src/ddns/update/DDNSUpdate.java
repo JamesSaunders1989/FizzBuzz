@@ -19,6 +19,8 @@ public class DDNSUpdate {
     String update;
     int delay;
     JTextArea jtextfieldloop;
+    JTextField jtxtsite;
+    JTextField jtxtip;
     
     public DDNSUpdate(String site2, String updateurl)
     {
@@ -62,6 +64,21 @@ public class DDNSUpdate {
         }
     }
                 
+    public void setSiteTextField(String str2)
+    {
+        jtxtsite.setText(str2);
+    }
+    
+    public void setIPTextField(String str2)
+    {
+        jtxtip.setText(str2);
+    }
+    
+    public void setTextFields(JTextField jsiteip, JTextField jmyip)
+    {
+        jtxtsite = jsiteip;
+        jtxtip = jmyip;
+    }
     
     public boolean getLoop()
     {

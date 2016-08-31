@@ -53,6 +53,7 @@ public class Interface extends javax.swing.JFrame {
         updateurl = con.getProp("URLupdate");
         
         
+        
         if(runonstart.equalsIgnoreCase("true") == true)
         {
             boostart = true;
@@ -72,7 +73,7 @@ public class Interface extends javax.swing.JFrame {
         jTextField4.setText(site);
         jTextField5.setText(updateurl);
         
-        
+        dnsup.setTextFields(jTextField1, jTextField2);
         
         jSpinner1.setValue(5);
         
@@ -147,6 +148,7 @@ public class Interface extends javax.swing.JFrame {
         jSpinner1 = new javax.swing.JSpinner();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaLoop = new javax.swing.JTextArea();
+        jClearBtn = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -358,30 +360,42 @@ public class Interface extends javax.swing.JFrame {
         jTextAreaLoop.setRows(5);
         jScrollPane1.setViewportView(jTextAreaLoop);
 
+        jClearBtn.setText("Clear Log");
+        jClearBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jClearBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(Start, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(33, 33, 33)
-                                .addComponent(Stop, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(Start, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(33, 33, 33)
+                                        .addComponent(Stop, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel7)
+                                        .addGap(37, 37, 37)
+                                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel7)
-                                .addGap(37, 37, 37)
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(91, 91, 91)
+                                .addComponent(jLabel6))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(jLabel6)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addGap(113, 113, 113)
+                        .addComponent(jClearBtn)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,7 +412,9 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jClearBtn)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jTabbedPane3.addTab("Auto Update", jPanel3);
@@ -513,7 +529,7 @@ public class Interface extends javax.swing.JFrame {
     private void StopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StopActionPerformed
         loop = false;
         dnsup.setLoop(loop);
-        jTextAreaLoop.setText(jTextAreaLoop.getText() + "Loop Stopped " + "   " + date.getDate() + "\n");
+        jTextAreaLoop.setText("Loop Stopped " + "   " + date.getDate() + "\n" + jTextAreaLoop.getText());
         // TODO add your handling code here:
     }//GEN-LAST:event_StopActionPerformed
 
@@ -549,6 +565,10 @@ public class Interface extends javax.swing.JFrame {
         System.out.println(con.getProp("Site"));
         System.out.println(con.getProp("URLupdate"));
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jClearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClearBtnActionPerformed
+        jTextAreaLoop.setText("");
+    }//GEN-LAST:event_jClearBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -598,6 +618,7 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JButton jClearBtn;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -158,7 +158,7 @@ public class AnswerWorker extends SwingWorker<Integer, Integer>
         try {
         l++;
         //loopoutput = loopoutput + "Starting update Loop " + l + "   " + date.getDate() + "\n";
-        jTextFieldLoop.setText(jTextFieldLoop.getText() + "Starting update loop " + l + "   " + date.getDate() + "\n");
+        jTextFieldLoop.setText("Starting update loop " + l + "   " + date.getDate() + "\n" + jTextFieldLoop.getText());
         loopy = dnsup.getLoop();
         System.out.println("after getLoop ");
         con = dnsup.getConfig();                    //gets config file
@@ -173,7 +173,8 @@ public class AnswerWorker extends SwingWorker<Integer, Integer>
         System.out.println("getIP ");
         System.out.println("in while loop ");
         
-        
+        dnsup.setSiteTextField(siteip);
+        dnsup.setIPTextField(ip);
         
         dnsup.setIP(update);
         
