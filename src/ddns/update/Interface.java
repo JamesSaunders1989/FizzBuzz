@@ -58,7 +58,7 @@ public class Interface extends javax.swing.JFrame {
         {
             boostart = true;
         }
-        else
+        else if(runonstart.equalsIgnoreCase("false") == false)
         {
             boostart = false;
         }
@@ -472,7 +472,7 @@ public class Interface extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         con.saveProp("Site", jTextField4.getText());
         con.saveProp("URLupdate", jTextField5.getText());
-        runonstart = ("" + jCheckBox1.isEnabled());
+        runonstart = ("" + jCheckBox1.isSelected());
         con.saveProp("Startup", runonstart);
         
         site = jTextField4.getText();
@@ -535,16 +535,20 @@ public class Interface extends javax.swing.JFrame {
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
-        runonstart = "" + jCheckBox1.isEnabled();
+        boostart = jCheckBox1.isSelected();
+        runonstart = "" + boostart;
         
         if(runonstart.equalsIgnoreCase("true") == true)
         {
             boostart = true;
         }
-        else
+        else if(runonstart.equalsIgnoreCase("false") == false)
         {
             boostart = false;
         }
+        
+        con.saveProp("Startup", runonstart);
+        
         
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
