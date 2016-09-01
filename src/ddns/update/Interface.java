@@ -5,6 +5,8 @@
  */
 package ddns.update;
 
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeUnit;
@@ -35,7 +37,7 @@ public class Interface extends javax.swing.JFrame {
     ReadFile otherlog;
     
     
-    
+    public static TrayIcon trayicon;
     
     
     /**
@@ -104,6 +106,20 @@ public class Interface extends javax.swing.JFrame {
 
     }
 
+    public void addTray()
+    {
+        if(!SystemTray.isSupported())
+        {
+            System.err.println("[Error] your System doesnt support Tray icon");
+        }
+        else
+        {
+            System.out.println("Your System is up to date enough for Tray icon");
+        }
+        
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialise the form.
      * WARNING: Do NOT modify this code. The content of this method is always
