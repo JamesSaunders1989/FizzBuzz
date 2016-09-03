@@ -6,12 +6,15 @@
 package ddns.update;
 
 import java.awt.AWTException;
+import java.awt.CheckboxMenuItem;
 import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -41,6 +44,11 @@ public class Trayicon {
         {
             System.out.println("Your System is up to date enough for Tray icon");
         }
+
+//        BufferedImage trayIconImage = ImageIO.read(getClass().getResource("/path/to/icon.png"));
+//        int trayIconWidth = new TrayIcon(trayIconImage).getSize().width;
+//        TrayIcon trayIcon = new TrayIcon(trayIconImage.getScaledInstance(trayIconWidth, -1, Image.SCALE_SMOOTH));
+
         Image icon = Toolkit.getDefaultToolkit().getImage("C:/Users/Salad/Documents/NetBeans/DNS-updater/src/Images/DDNSUPsmall.png");
         trayIcon = new java.awt.TrayIcon(icon, "DDNS Update");
         
@@ -50,9 +58,25 @@ public class Trayicon {
         
         
         MenuItem aboutItem = new MenuItem("About");
+        MenuItem exit = new MenuItem("Exit");
+        
+        CheckboxMenuItem cbi = new CheckboxMenuItem("Auto Start");
         
         menu.add(aboutItem);
         
+        menu.add(cbi);
+        menu.addSeparator();
+        menu.add(exit);
+        
+//        ActionListener exitListener;
+//        exitListener = new ActionListener() {
+//            public void ActionPerformed(ActionEvent e)
+//            {
+//                System.exit(0);
+//            }
+//        };
+//        exit.addActionListener(exitListener);
+                
         try
         {
             SystemTray tray = SystemTray.getSystemTray();
