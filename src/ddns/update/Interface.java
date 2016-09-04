@@ -20,6 +20,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JTextField;
 
 /**
@@ -58,7 +59,9 @@ public class Interface extends javax.swing.JFrame {
         
         initComponents();
         
-        
+        Image i = ImageIO.read(getClass().getResource("/Images/DDNSUP.png"));
+        setIconImage(i);
+
         tray = new Trayicon(this);
         
         
@@ -129,6 +132,8 @@ public class Interface extends javax.swing.JFrame {
     public void setjCheckboxSet(boolean setcheck)
     {
         jCheckBox1.setSelected(setcheck);
+        tray.cbi.setState(setcheck);
+        con.saveProp("Startup", "" + setcheck);
     }
     
     /**
