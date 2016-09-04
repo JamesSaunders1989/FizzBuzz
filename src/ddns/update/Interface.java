@@ -595,10 +595,7 @@ public class Interface extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
-    public void setjCheckboxSet(boolean boo1)
-    {
-        jCheckBox1.setSelected(boo1);
-    }
+
     
     
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
