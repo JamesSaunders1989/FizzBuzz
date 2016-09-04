@@ -41,6 +41,8 @@ public class Interface extends javax.swing.JFrame {
     
     
     
+    
+    
     boolean loop;
     
     ReadFile otherlog;
@@ -591,9 +593,14 @@ public class Interface extends javax.swing.JFrame {
         con.saveProp("Startup", runonstart);
         tray.cbi.setState(boostart);
         
-        
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
+    public void setjCheckboxSet(boolean boo1)
+    {
+        jCheckBox1.setSelected(boo1);
+    }
+    
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try
         {
