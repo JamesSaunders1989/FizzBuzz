@@ -5,8 +5,16 @@
  */
 package ddns.update;
 
+import java.awt.Image;
 import java.awt.SystemTray;
+import java.awt.Toolkit;
 import java.awt.TrayIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeUnit;
@@ -29,6 +37,7 @@ public class Interface extends javax.swing.JFrame {
     String runonstart;
     boolean boostart;
     DateTime date;
+    Trayicon tray;
     
     
     
@@ -37,7 +46,7 @@ public class Interface extends javax.swing.JFrame {
     ReadFile otherlog;
     
     
-    public static TrayIcon trayicon;
+    
     
     
     /**
@@ -46,6 +55,14 @@ public class Interface extends javax.swing.JFrame {
     public Interface() throws UnsupportedEncodingException, IOException {
         
         initComponents();
+        
+        
+        tray = new Trayicon(this);
+        
+        
+            
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        
         
         jTextField2.setEditable(false);
         jTextField1.setEditable(false);
@@ -66,6 +83,7 @@ public class Interface extends javax.swing.JFrame {
         }
         
         jCheckBox1.setSelected(boostart);
+        tray.setcheckbox(boostart);
         
         
         dnsup = new DDNSUpdate(site, updateurl);
@@ -105,20 +123,11 @@ public class Interface extends javax.swing.JFrame {
         }
 
     }
-
-    public void addTray()
-    {
-        if(!SystemTray.isSupported())
-        {
-            System.err.println("[Error] your System doesnt support Tray icon");
-        }
-        else
-        {
-            System.out.println("Your System is up to date enough for Tray icon");
-        }
-        
-    }
     
+    public void setjCheckboxSet(boolean setcheck)
+    {
+        jCheckBox1.setSelected(setcheck);
+    }
     
     /**
      * This method is called from within the constructor to initialise the form.
@@ -149,13 +158,6 @@ public class Interface extends javax.swing.JFrame {
         jTextArea2 = new javax.swing.JTextArea();
         jButton3 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         Start = new javax.swing.JButton();
@@ -165,6 +167,13 @@ public class Interface extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaLoop = new javax.swing.JTextArea();
         jClearBtn = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -182,6 +191,11 @@ public class Interface extends javax.swing.JFrame {
         jToggleButton1.setText("jToggleButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setText("Current IP");
 
@@ -289,71 +303,6 @@ public class Interface extends javax.swing.JFrame {
 
         jTabbedPane3.addTab("IP", jPanel1);
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Site to check IP");
-
-        jLabel5.setText("URL for update");
-
-        jButton4.setText("Save");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox1.setText("run loop on startup");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField5)
-                    .addComponent(jTextField4))
-                .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(86, 86, 86)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(91, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox1)
-                .addGap(66, 66, 66)
-                .addComponent(jButton4)
-                .addContainerGap(109, Short.MAX_VALUE))
-        );
-
-        jTabbedPane3.addTab("Config", jPanel2);
-
         jLabel6.setText("Auto Update Loop");
 
         Start.setText("Start");
@@ -435,6 +384,71 @@ public class Interface extends javax.swing.JFrame {
 
         jTabbedPane3.addTab("Auto Update", jPanel3);
 
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField4ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Site to check IP");
+
+        jLabel5.setText("URL for update");
+
+        jButton4.setText("Save");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox1.setText("run loop on startup");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField5)
+                    .addComponent(jTextField4))
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(86, 86, 86)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBox1)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(91, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBox1)
+                .addGap(66, 66, 66)
+                .addComponent(jButton4)
+                .addContainerGap(109, Short.MAX_VALUE))
+        );
+
+        jTabbedPane3.addTab("Config", jPanel2);
+
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
 
@@ -485,6 +499,35 @@ public class Interface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
+    
+    
+    
+    
+    public void windowClosing(WindowEvent e) 
+    {
+        ActionListener task = new ActionListener() {
+            
+        boolean alreadyDisposed = false;
+        
+        public void actionPerformed(ActionEvent e) 
+        {
+            setVisible(false);
+        }
+        
+    };
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         con.saveProp("Site", jTextField4.getText());
         con.saveProp("URLupdate", jTextField5.getText());
@@ -521,25 +564,7 @@ public class Interface extends javax.swing.JFrame {
         
     }//GEN-LAST:event_StartActionPerformed
 
-    public void runLoop()
-    {
-        while(loop == true)
-        {
-        String siteip = dnsup.getSiteIP(site);
-        String ip = dnsup.getIP();
-        MyThread mythread = new MyThread();
-        mythread.setLoop(true);
-        mythread.start();
-        try {
-            int wait = (int)jSpinner1.getValue();
-            TimeUnit.SECONDS.sleep(wait);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        mythread.stop();
-        mythread = null;
-        }
-    }
+//    
     
     
     private void StopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StopActionPerformed
@@ -564,6 +589,7 @@ public class Interface extends javax.swing.JFrame {
         }
         
         con.saveProp("Startup", runonstart);
+        tray.cbi.setState(boostart);
         
         
     }//GEN-LAST:event_jCheckBox1ActionPerformed
@@ -589,6 +615,11 @@ public class Interface extends javax.swing.JFrame {
     private void jClearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClearBtnActionPerformed
         jTextAreaLoop.setText("");
     }//GEN-LAST:event_jClearBtnActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        setVisible(false);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
