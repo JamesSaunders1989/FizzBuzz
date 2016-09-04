@@ -567,7 +567,6 @@ public class Interface extends javax.swing.JFrame {
         
         con.saveProp("Startup", runonstart);
         
-        
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     public void setjCheckboxSet(boolean boo1)
